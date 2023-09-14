@@ -14,11 +14,17 @@ jobs:
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
           
-      # Étape pour exécuter les tests
+      # Étape pour installer Rust et exécuter les tests
+      - name: Setup Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+          
       - name: Run Tests
         run: |
-          # Commandes pour installer les dépendances (si nécessaire)
-          # Commandes pour exécuter les tests
+          cargo test
           
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
