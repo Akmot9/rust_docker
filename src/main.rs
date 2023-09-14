@@ -2,6 +2,7 @@ fn main() {
     println!("Hello, world! ouiii");
     println!("5 + 3 = {}", addition(5, 3));
     println!("5 - 3 = {}", subtraction(5, 3));
+    division(2,2);
 }
 
 fn addition(a: i32, b: i32) -> i32 {
@@ -10,6 +11,10 @@ fn addition(a: i32, b: i32) -> i32 {
 
 fn subtraction(a: i32, b: i32) -> i32 {
     a - b
+}
+
+fn division(a: i32, b: i32) -> i32 {
+    a / b
 }
 
 #[cfg(test)]
