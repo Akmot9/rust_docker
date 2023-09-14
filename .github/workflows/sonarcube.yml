@@ -21,11 +21,11 @@ jobs:
           toolchain: stable
           override: true
 
-      - name: Install cargo-tarpaulin
-        run: cargo install cargo-tarpaulin
-
-      - name: Generate Tarpaulin report
-        run: cargo tarpaulin --out Xml
+      - name: Run cargo-tarpaulin
+        uses: actions-rs/tarpaulin@v0.1
+        with:
+            version: '0.15.0'
+            args: '-- --test-threads 1'
 
       - name: Run Tests
         run: cargo test
