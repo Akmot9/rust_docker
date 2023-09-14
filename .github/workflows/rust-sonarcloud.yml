@@ -22,8 +22,14 @@ jobs:
         toolchain: stable
         override: true
 
+    - name: Run cargo-tarpaulin
+      run: cargo tarpaulin --out Xml
+    - name: checkout_report
+      run: find . 
+
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    
