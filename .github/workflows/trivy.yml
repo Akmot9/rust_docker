@@ -12,7 +12,7 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
-            image-ref: 'docker.io/akmot9/hello_rust:${{ github.sha }}'
+            image-ref: 'docker.io/akmot9/hello_rust'
             format: 'table'
             exit-code: '1'
             ignore-unfixed: true
