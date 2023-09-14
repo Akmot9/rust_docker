@@ -1,0 +1,26 @@
+name: trivy
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Build an image from Dockerfile
+        run: docker build -t docker.io/my-organization/my-app:${{ github.sha }} .
+      
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@v1  # Use a stable version
+        with:
+          image-ref: 'docker.io/my-organization/my-app:${{ github.sha }}'
+          format: 'table'
+          exit-code: '1'  # Fail the build if a vulnerability is found
+          ignore-unfixed: true  # Only flag vulnerabilities that have been fixed
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
