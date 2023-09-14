@@ -1,6 +1,6 @@
-use serde::{self, Serialize, Deserialize};
+use libflate::gzip::{Decoder, Encoder};
+use serde::{self, Deserialize, Serialize};
 use std::io::{self, Read, Write};
-use libflate::gzip::{Encoder, Decoder};
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Point {
@@ -52,6 +52,11 @@ fn main() {
     println!("5 + 3 = {}", addition(5, 3));
     println!("5 - 3 = {}", subtraction(5, 3));
     println!("2 / 2 = {}", division(2, 2));
+
+    let original_data = b"Hello, world!";
+    let compressed_data = compress(original_data).unwrap();
+    let decompressed_data = decompress(&compressed_data).unwrap();
+    println!("{:?}", decompressed_data);
 }
 
 fn addition(a: i32, b: i32) -> i32 {
