@@ -10,9 +10,20 @@ jobs:
     name: SonarQube
     runs-on: ubuntu-latest
     steps:
+    
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          
+      - name: Installer les outils
+        run: |
+          rustup update stable
+          rustup component add clippy
+          cargo install cargo-tarpaulin
+      
+      - name: Générer la couverture
+        run: cargo tarpaulin --out Lcov
+
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v5
         env:
